@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body 
+    style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    ">
+    <p id="timer-label" style="font-size: 400px;">0:00</p>
+    <input id="timer-input" style="width: 200px;height: 45px;" type="text">
+    <button id="timer-btn" style="width: 200px;height: 50px;" type="button" onclick="startCounter()">start timer</button>
+<script>
+    var mySeconds;
+    var intervalHandle;
+
+    function tick(){
+        var timeDisplay=document.getElementById("timer-label");
+        
+        var min=Math.floor(mySeconds/60);
+        var sec=mySeconds-(min*60);
+        
+        if (sec < 10) {
+            sec="0"+sec;
+        }
+        
+        var message=min.toString()+":"+sec;
+        
+        timeDisplay.innerHTML=message;
+        
+        if(mySeconds===0){
+            alert("Done");
+            clearInterval(intervalHandle);
+            resetPage();
+        }
+        mySeconds--;
+        
+        
+    }
+    function startCounter(){
+        var myInput=document.getElementById("timer-input").value;
+        document.getElementById("timer-input").hidden = true;
+        document.getElementById("timer-btn").hidden = true;
+        if (isNaN(myInput)){
+            alert("Type a valid number please");
+            return;
+        }
+        mySeconds=myInput*60;
+        
+        intervalHandle=setInterval(tick, 1000);
+        
+    }
+
+</script>
+    
+</body>
+</html>
